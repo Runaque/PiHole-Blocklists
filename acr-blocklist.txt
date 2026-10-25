@@ -1,0 +1,53 @@
+! Title: Smart TV ACR Blocklist (core)
+! Description: Blocks Automatic Content Recognition (ACR), viewing-data
+!              collection and ad-tracking endpoints used by smart TVs.
+!              This is the "safe" tier: it targets ACR and ad pipelines and
+!              should not break streaming apps, app stores or firmware updates.
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+!
+! If something breaks, check the Pi-hole query log for the TV's IP and
+! allowlist the specific subdomain rather than removing a whole entry.
+
+! ---------------------------------------------------------------
+! Third-party ACR vendors (used across multiple brands)
+! ---------------------------------------------------------------
+! Samba TV - ACR on Sony, Philips, Sharp, TCL and other Google/Android TV sets
+||samba.tv^
+! Alphonso - ACR partner used by LG (e.g. prov-lg.alphonso.tv)
+||alphonso.tv^
+! Inscape - Vizio's ACR / viewing-data platform
+||tvinteractive.tv^
+||inscape.tv^
+
+! ---------------------------------------------------------------
+! Samsung (Tizen) - "Viewing Information Services" / SyncPlus
+! ---------------------------------------------------------------
+! ACR log and config endpoints (log-1/2/3, log-config, targeted-config...)
+||samsungacr.com^
+! ACR endpoint on the cloud-solution domain (whole domain is in aggressive list)
+||acr0.samsungcloudsolution.com^
+! Ad delivery and ad tracking
+||samsungads.com^
+||samsungadhub.com^
+||ads.samsung.com^
+! Legacy Smart Hub logging
+||log.internetat.tv^
+
+! ---------------------------------------------------------------
+! LG (webOS) - "Live Plus"
+! ---------------------------------------------------------------
+! Ad platform and ad info polling (info., ad., regional prefixes)
+||lgsmartad.com^
+
+! ---------------------------------------------------------------
+! Hisense (VIDAA)
+! ---------------------------------------------------------------
+||acr.unruly.co^
+
+! ---------------------------------------------------------------
+! Roku / Roku TV (TCL, Hisense, etc.) - "Use info from TV inputs"
+! ---------------------------------------------------------------
+||logs.roku.com^
+||cooper.roku.com^
+||ads.roku.com^

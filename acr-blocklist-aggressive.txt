@@ -1,0 +1,42 @@
+! Title: Smart TV ACR Blocklist (aggressive add-on)
+! Description: Broader manufacturer telemetry, remote-management and update
+!              domains. Use ON TOP of acr-blocklist.txt.
+!
+! WARNING: Entries here are known or likely to break things: app stores,
+!          built-in apps, Samsung TV Plus, firmware updates or initial setup.
+!          Recommended: apply this list only to the TV's client group in
+!          Pi-hole, and test after adding. Notes per entry say what may break.
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+
+! ---------------------------------------------------------------
+! Samsung (Tizen)
+! ---------------------------------------------------------------
+! Cloud services; lcprd1.samsungcloudsolution.net is reported to break the app store
+||samsungcloudsolution.com^
+||samsungcloudsolution.net^
+! Firmware / OTA updates - blocking stops TV updates
+||samsungotn.net^
+! Remote management
+||samsungrm.net^
+! Device/account services; may affect sign-in
+||samsungosp.com^
+||samsungqbe.com^
+! Legacy Smart Hub services
+||internetat.tv^
+||pavv.co.kr^
+
+! ---------------------------------------------------------------
+! LG (webOS)
+! ---------------------------------------------------------------
+! Device telemetry and status; blocking is reported to break the LG Content Store
+||lgtvsdp.com^
+||nextlgsdp.com^
+! Common services (e.g. eic.service.lgtvcommon.com); may affect apps/updates
+||lgtvcommon.com^
+! IoT / ThinQ API
+||api.lgtviot.com^
+! AI platform services on newer webOS
+||ngfts.lge.com^
+! Firmware updates - blocking stops TV updates
+||snu.lge.com^
