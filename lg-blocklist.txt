@@ -1,0 +1,57 @@
+! Title: LG webOS Blocklist
+! Description: Blocks ads, ACR (Live Plus) and ad tracking on LG webOS TVs.
+!              Active entries target ads/ACR only and should not break the
+!              LG Content Store, streaming apps or firmware updates.
+!              Optional telemetry/update entries are commented out at the bottom:
+!              remove the leading "! " to enable them, knowing what may break.
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+!
+! Note: YouTube in-app ads are served from the same domains as the video and
+!       cannot be blocked by DNS. Also disable IPv6 on the TV if your Pi-hole
+!       does not answer AAAA/IPv6 DNS, or queries may slip past it.
+
+! ---------------------------------------------------------------
+! ACR (Live Plus) - LG's partner Alphonso (e.g. prov-lg.alphonso.tv)
+! ---------------------------------------------------------------
+||alphonso.tv^
+
+! ---------------------------------------------------------------
+! LG ad platform - home screen ads, ad info polling, all regions
+! (us., de., fr., jp., info., ad. ... are all covered)
+! ---------------------------------------------------------------
+||lgsmartad.com^
+||us-ad-lgsmartad-com.aws-prd.net^
+||lgad.cjpowercast.com.edgesuite.net^
+
+! ---------------------------------------------------------------
+! Ad endpoints on the LG apps domain
+! (only the ad hosts - the rest of lgappstv.com is the app store)
+! ---------------------------------------------------------------
+||ad.lgappstv.com^
+||ibis.lgappstv.com^
+||us.ibs.lgappstv.com^
+
+! ---------------------------------------------------------------
+! Third-party ad servers seen on LG TVs
+! smartclip is a European video ad network (also used for HbbTV ads)
+! ---------------------------------------------------------------
+||smartclip.net^
+||yumenetworks.com^
+
+! ===============================================================
+! OPTIONAL - telemetry, AI and update services
+! Uncomment only what you're willing to lose. Test after each change.
+! ===============================================================
+! Device telemetry/status. Reported to BREAK the LG Content Store.
+! ||lgtvsdp.com^
+! Newer webOS (10.x) telemetry endpoint. May affect store/services.
+! ||nextlgsdp.com^
+! Common services (e.g. eic.service.lgtvcommon.com). May affect apps.
+! ||lgtvcommon.com^
+! ThinQ / IoT API. Breaks ThinQ app control of the TV.
+! ||api.lgtviot.com^
+! AI platform services on newer webOS. Breaks AI/voice features.
+! ||ngfts.lge.com^
+! Firmware updates. Blocking this STOPS TV UPDATES.
+! ||snu.lge.com^

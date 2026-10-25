@@ -1,0 +1,68 @@
+! Title: Android Game Ads Blocklist
+! Description: Blocks the third-party ad networks and mediation SDKs used by
+!              mobile games: the networks AdMob/LevelPlay/MAX mediate to
+!              (Unity Ads, AppLovin, ironSource, Liftoff/Vungle, Mintegral,
+!              Pangle, InMobi, Meta Audience Network, Chartboost, and others).
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+!
+! WHAT TO EXPECT
+!  - Banner and interstitial ads stop loading in most games.
+!  - "Watch an ad for a reward" buttons will fail or disappear.
+!  - A few games refuse to start or hang on loading when their ad SDK can't
+!    initialise. Fix: allowlist that network's domain for the game's device,
+!    or put kids' tablets/phones in a Pi-hole group that uses this list.
+!  - Ads served from the game's own servers can't be blocked by DNS.
+!
+! Google AdMob is NOT in this list: use google-ads-mobile-blocklist.txt
+! alongside it, which covers AdMob, DoubleClick and Firebase analytics.
+
+! ---------------------------------------------------------------
+! Unity Ads (only the ads hosts - NOT unity3d.com as a whole,
+! which would break Unity games' own services)
+! ---------------------------------------------------------------
+||unityads.unity3d.com^
+
+! ---------------------------------------------------------------
+! AppLovin (incl. MAX mediation)
+! ---------------------------------------------------------------
+||applovin.com^
+||applvn.com^
+
+! ---------------------------------------------------------------
+! ironSource / Unity LevelPlay ad delivery
+! ---------------------------------------------------------------
+||supersonicads.com^
+
+! ---------------------------------------------------------------
+! Liftoff Monetize (formerly Vungle)
+! ---------------------------------------------------------------
+||vungle.com^
+
+! ---------------------------------------------------------------
+! Mintegral
+! ---------------------------------------------------------------
+||rayjump.com^
+||mintegral.com^
+
+! ---------------------------------------------------------------
+! Pangle (ByteDance / TikTok ad network)
+! ---------------------------------------------------------------
+||pangle.io^
+
+! ---------------------------------------------------------------
+! Other networks commonly mediated in games
+! ---------------------------------------------------------------
+! InMobi
+||inmobi.com^
+! Meta Audience Network (only the ad host - graph.facebook.com is left
+! alone so Facebook login in games keeps working)
+||an.facebook.com^
+! Chartboost
+||chartboost.com^
+! AdColony / Digital Turbine
+||adcolony.com^
+! Fyber / DT Exchange ad server
+||inner-active.mobi^
+! Tapjoy (offerwalls)
+||tapjoy.com^

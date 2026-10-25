@@ -1,0 +1,54 @@
+! Title: Xiaomi Blocklist
+! Description: Blocks Xiaomi ads (MSA / MIUI System Ads), analytics and tracking
+!              on Xiaomi phones (MIUI / HyperOS) and Xiaomi Mi Box / Mi TV devices.
+!              Account, Find Device, MIUI updates and Mi Home are NOT blocked.
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+!
+! Deliberately NOT blocked (needed for account, updates and device control).
+! If another list blocks them, add them to your Pi-hole allowlist:
+!   account.xiaomi.com, update.miui.com, update.intl.miui.com,
+!   global.market.xiaomi.com, find.api.micloud.xiaomi.net, api.io.mi.com
+!
+! Xiaomi uses region-specific tracking hosts (tracking.<region>.miui.com) and
+! adds new regions over time. For full coverage, also add this REGEX deny rule
+! in Pi-hole (Domains > Regex filter), since adlists cannot hold regex:
+!   ^tracking\..+\.miui\.com$
+!
+! Mi Box / Android TV note: home-screen "sponsored" rows come from Google's
+! Android TV launcher, not Xiaomi. See the Android TV section at the bottom.
+
+! ---------------------------------------------------------------
+! Xiaomi ad platform (MSA / MIUI System Ads) - global and intl
+! ---------------------------------------------------------------
+||ad.xiaomi.com^
+||ad.intl.xiaomi.com^
+||ad.mi.com^
+||adv.sec.miui.com^
+||adv.sec.intl.miui.com^
+
+! ---------------------------------------------------------------
+! Analytics / statistics (mistat)
+! ---------------------------------------------------------------
+||mistat.xiaomi.com^
+||mistat.intl.xiaomi.com^
+
+! ---------------------------------------------------------------
+! Tracking - known regional hosts (use the regex above for the rest)
+! ---------------------------------------------------------------
+||tracking.miui.com^
+||tracking.intl.miui.com^
+||tracking.eu.miui.com^
+||tracking.fr.miui.com^
+||tracking.gb.miui.com^
+||tracking.rus.miui.com^
+||tracking.india.miui.com^
+
+! ===============================================================
+! Android TV launcher ads (Mi Box, Mi TV Stick and other Android TV boxes)
+! EXPERIMENTAL - verify in your Pi-hole log before relying on it.
+! The most reliable fix is on the device: Settings > Apps > System apps >
+! "Android TV Core Services" (and/or "Android TV Home") > Uninstall updates,
+! then disable auto-update for it in the Play Store.
+! ===============================================================
+||androidtvchannels-pa.googleapis.com^

@@ -1,95 +1,82 @@
-# Pi-hole Blocklist - Google Ads & Mobile App Tracking
-# Compiled for freemium app ad blocking
-# Format: One domain per line
+! Title: Google Ads & Mobile App Tracking Blocklist
+! Description: Blocks Google ad delivery, Google/Firebase analytics and crash
+!              reporting in apps, plus Apple ad and analytics endpoints.
+!              Compiled for freemium app ad blocking.
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-25
+!
+! Side effects:
+!  - Clicks on sponsored Google Search/Shopping results won't open.
+!  - Google Analytics / Tag Manager / Google Ads dashboards won't load.
+!  - A few websites may hang on their cookie-consent wall (fundingchoices).
 
-googleadservices.com
-googlesyndication.com
-googlesyndication-cn.com
-doubleclick.net
-doubleclick-cn.net
-gstaticadssl.l.google.com
-googleadapis.l.google.com
-pagead2.googlesyndication.com
-tpc.googlesyndication.com
-video-ad-stats.googlesyndication.com
-pagead-googlehosted.l.google.com
-pagead.l.doubleclick.net
-afs.googlesyndication.com
-securepubads.g.doubleclick.net
-pubads.g.doubleclick.net
-googleads.g.doubleclick.net
-ad.doubleclick.net
-static.doubleclick.net
-m.doubleclick.net
-mediavisor.doubleclick.net
-admob.com
-analytics.google.com
-google-analytics.com
-ssl.google-analytics.com
-region1.google-analytics.com
-googletagmanager.com
-tagmanager.google.com
-app-measurement.com
-app-measurement-cn.com
-crashlytics.com
-firebase-settings.crashlytics.com
-e.crashlytics.com
-reports.crashlytics.com
-settings.crashlytics.com
-firebaseinstallations.googleapis.com
-firebaselogging.googleapis.com
-firebaselogging-pa.googleapis.com
-firebaseperusertopics.googleapis.com
-mobilenetworkscoring-pa.googleapis.com
-optimizationguide-pa.googleapis.com
-pagead2.googleadservices.com
-www.googleadservices.com
-www.googletagmanager.com
-www.google-analytics.com
-ssl-google-analytics.l.google.com
-www-google-analytics.l.google.com
-partner.googleadservices.com
-clickserve.dartsearch.net
-googlecommerce.com
-adwords.google.com
-adwords.google.sk
-www.googletagservices.com
-googletagservices.com
-fundingchoicesmessages.google.com
-fundingchoices.google.com
-service.urchin.com
-urchin.com
-analytics.admob.com
-media.admob.com
-mm.admob.com
-mmv.admob.com
-p.admob.com
-r.admob.com
-r2.admob.com
-api.admob.com
-c.admob.com
-e.admob.com
-g.admob.com
-w.admob.com
-ad-g.doubleclick.net
-ad.mo.doubleclick.net
-ad-emea.doubleclick.net
-ad-apac.doubleclick.net
-s0.2mdn.net
-s1.2mdn.net
-googleads4.g.doubleclick.net
-fls.doubleclick.net
-fls.uk.doubleclick.net
-gmossp-sp-analytics.googleapis.com
-mail-ads.google.com
-inappcheck.itunes.apple.com
-iad.apple.com
-iadcontent.apple.com
-iadworkbench.apple.com
-mesu.apple.com
-api-adservices.apple.com
-books-analytics-events.apple.com
-metrics.icloud.com
-metrics.mzstatic.com
-searchads.apple.com
-widgets.itunes.apple.com
+! ---------------------------------------------------------------
+! Google ad delivery (AdMob, Ad Manager, AdSense, DoubleClick)
+! ---------------------------------------------------------------
+||doubleclick.net^
+||doubleclick-cn.net^
+||googlesyndication.com^
+||googlesyndication-cn.com^
+||googleadservices.com^
+||googletagservices.com^
+||2mdn.net^
+||admob.com^
+||adservice.google.com^
+||mail-ads.google.com^
+||clickserve.dartsearch.net^
+! CNAME targets of Google ad hosts (caught via Pi-hole's CNAME inspection)
+||gstaticadssl.l.google.com^
+||googleadapis.l.google.com^
+||pagead-googlehosted.l.google.com^
+
+! ---------------------------------------------------------------
+! Google consent popups (Funding Choices)
+! ---------------------------------------------------------------
+||fundingchoices.google.com^
+||fundingchoicesmessages.google.com^
+
+! ---------------------------------------------------------------
+! Google Ads / Commerce advertiser platforms
+! ---------------------------------------------------------------
+||adwords.google.com^
+||adwords.google.sk^
+||googlecommerce.com^
+
+! ---------------------------------------------------------------
+! Google Analytics and Tag Manager
+! ---------------------------------------------------------------
+||google-analytics.com^
+||ssl-google-analytics.l.google.com^
+||www-google-analytics.l.google.com^
+||analytics.google.com^
+||googletagmanager.com^
+||tagmanager.google.com^
+||urchin.com^
+
+! ---------------------------------------------------------------
+! Firebase analytics, logging and Crashlytics
+! (firebaseinstallations.googleapis.com is deliberately NOT blocked:
+!  apps need it to register for push notifications)
+! ---------------------------------------------------------------
+||app-measurement.com^
+||app-measurement-cn.com^
+||crashlytics.com^
+||firebaselogging.googleapis.com^
+||firebaselogging-pa.googleapis.com^
+||firebaseperusertopics.googleapis.com^
+||gmossp-sp-analytics.googleapis.com^
+
+! ---------------------------------------------------------------
+! Apple ads and analytics
+! (mesu.apple.com and inappcheck.itunes.apple.com are deliberately NOT
+!  blocked: they are needed for iOS/macOS updates and in-app purchases)
+! ---------------------------------------------------------------
+||api-adservices.apple.com^
+||searchads.apple.com^
+||books-analytics-events.apple.com^
+||metrics.icloud.com^
+||metrics.mzstatic.com^
+! Legacy iAd hosts (service discontinued in 2016, kept for older devices)
+||iad.apple.com^
+||iadcontent.apple.com^
+||iadworkbench.apple.com^
