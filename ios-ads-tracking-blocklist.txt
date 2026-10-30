@@ -1,0 +1,78 @@
+! Title: iOS Ads & App Tracking Blocklist
+! Description: Blocks Apple's own ad and analytics endpoints, plus the
+!              attribution and analytics SDKs built into many iPhone/iPad apps
+!              (AppsFlyer, Adjust, Branch, Kochava, Singular, Mixpanel, ...).
+! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
+! Last updated: 2026-10-30
+!
+! USE TOGETHER WITH
+!  - google-ads-mobile-blocklist.txt  -> AdMob, DoubleClick, Firebase (in iOS apps too)
+!  - android-game-ads-blocklist.txt   -> Unity Ads, AppLovin, ironSource, etc.
+!    Despite the name, games on iOS use the same ad networks, so that list
+!    works for iPhone/iPad games as well.
+!
+! DELIBERATELY NOT BLOCKED (needed for updates, App Store and purchases):
+!   mesu.apple.com, gs.apple.com, inappcheck.itunes.apple.com, xp.apple.com
+!
+! IPHONE SETTINGS THAT BYPASS PI-HOLE
+!  - iCloud Private Relay: Pi-hole v6 blocks it by default
+!    (dns.specialDomains.iCloudPrivateRelay = true), so iPhones fall back to
+!    your Pi-hole on your network. Leave that setting on.
+!  - "Limit IP Address Tracking" (Settings > Wi-Fi > your network) can route
+!    known tracker traffic around Pi-hole. Turn it off on your home Wi-Fi.
+!  - Also turn on Settings > Privacy & Security > Tracking > "Allow Apps to
+!    Request to Track" = off. It's free and stops cross-app tracking at the source.
+
+! ---------------------------------------------------------------
+! Apple ads (App Store / Apple News Search Ads) and ad attribution
+! ---------------------------------------------------------------
+||api-adservices.apple.com^
+||iadsdk.apple.com^
+! Advertiser dashboard - only affects people who run Apple Search Ads campaigns
+||searchads.apple.com^
+! Legacy iAd hosts (service discontinued in 2016, kept for older devices)
+||iad.apple.com^
+||iadcontent.apple.com^
+||iadworkbench.apple.com^
+
+! ---------------------------------------------------------------
+! Apple analytics
+! ---------------------------------------------------------------
+||books-analytics-events.apple.com^
+||metrics.icloud.com^
+||metrics.mzstatic.com^
+
+! ---------------------------------------------------------------
+! Mobile attribution SDKs - track which ad made you install an app
+! and follow you across apps.
+! Side effect: some marketing links in emails and ads (adj.st, app.adjust.com,
+! onelink.me, app.link) redirect through these and will stop opening.
+! ---------------------------------------------------------------
+! AppsFlyer
+||appsflyer.com^
+||appsflyersdk.com^
+! Adjust
+||adjust.com^
+||adjust.io^
+! Branch
+||branch.io^
+! Kochava
+||kochava.com^
+! Singular
+||singular.net^
+! Tenjin
+||tenjin.com^
+
+! ---------------------------------------------------------------
+! In-app analytics SDKs - usage tracking, not needed for apps to work
+! ---------------------------------------------------------------
+! Mixpanel
+||api.mixpanel.com^
+||api-js.mixpanel.com^
+! Amplitude
+||api.amplitude.com^
+||api2.amplitude.com^
+! Segment
+||api.segment.io^
+! Flurry (Yahoo)
+||data.flurry.com^

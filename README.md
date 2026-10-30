@@ -12,8 +12,9 @@ Focused, hand-curated lists for things the big general-purpose lists tend to mis
 | [`acr-blocklist-aggressive.txt`](acr-blocklist-aggressive.txt) | Add-on to the above: broader Samsung and LG telemetry, remote management and firmware update servers | **High**, see below |
 | [`lg-blocklist.txt`](lg-blocklist.txt) | LG webOS ads, Live Plus ACR and ad tracking. Optional telemetry entries included but commented out | Low |
 | [`xiaomi-blocklist.txt`](xiaomi-blocklist.txt) | Xiaomi ads (MSA), analytics and tracking on MIUI / HyperOS phones and Mi Box devices | Low |
-| [`google-ads-mobile-blocklist.txt`](google-ads-mobile-blocklist.txt) | Google ads (AdMob, DoubleClick, AdSense), Google / Firebase analytics, and Apple ad and analytics endpoints | Low to medium |
-| [`android-game-ads-blocklist.txt`](android-game-ads-blocklist.txt) | Third-party ad networks used in mobile games: Unity Ads, AppLovin, ironSource, Liftoff/Vungle, Mintegral, Pangle and others | Medium |
+| [`google-ads-mobile-blocklist.txt`](google-ads-mobile-blocklist.txt) | Google ads (AdMob, DoubleClick, AdSense) and Google / Firebase analytics in apps, on Android and iOS | Low to medium |
+| [`ios-ads-tracking-blocklist.txt`](ios-ads-tracking-blocklist.txt) | Apple's own ad and analytics endpoints, plus attribution and analytics SDKs in iPhone/iPad apps (AppsFlyer, Adjust, Branch, Mixpanel, ...) | Low to medium |
+| [`android-game-ads-blocklist.txt`](android-game-ads-blocklist.txt) | Third-party ad networks used in mobile games: Unity Ads, AppLovin, ironSource, Liftoff/Vungle, Mintegral, Pangle and others. Works for iOS games too, they use the same networks | Medium |
 
 ## How to use
 
@@ -38,6 +39,7 @@ The lists use Adblock-style syntax (`||example.com^`), supported by Pi-hole v6. 
 
 - **`acr-blocklist-aggressive.txt` will break things.** It can stop app stores, built-in apps, Samsung TV Plus and firmware updates from working. Use it on top of the core list, and preferably assign it only to your TV's client group in Pi-hole rather than your whole network.
 - **`android-game-ads-blocklist.txt` changes how games behave.** "Watch an ad for a reward" buttons stop working, and a few games may refuse to start when their ad SDK can't connect. A separate Pi-hole group for the devices that need it works best. It doesn't include Google AdMob; use it together with `google-ads-mobile-blocklist.txt` for that.
+- **For iPhones and iPads**, use `ios-ads-tracking-blocklist.txt` together with the Google and game ads lists, since iOS apps use the same ad networks. Some marketing links in emails (Adjust, AppsFlyer, Branch) will stop opening. Also check two iPhone settings that can route traffic around Pi-hole: keep Pi-hole's iCloud Private Relay blocking on (default in v6), and turn off "Limit IP Address Tracking" for your home Wi-Fi.
 - **Xiaomi uses rotating regional tracking hosts.** For full coverage, also add this regex to Pi-hole's deny list (**Domains > Regex filter**), since adlists can't hold regex:
   ```
   ^tracking\..+\.miui\.com$

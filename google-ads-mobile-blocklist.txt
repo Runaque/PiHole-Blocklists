@@ -1,9 +1,10 @@
 ! Title: Google Ads & Mobile App Tracking Blocklist
 ! Description: Blocks Google ad delivery, Google/Firebase analytics and crash
-!              reporting in apps, plus Apple ad and analytics endpoints.
+!              reporting in apps. Apple endpoints live in
+!              ios-ads-tracking-blocklist.txt.
 !              Compiled for freemium app ad blocking.
 ! Format: Adblock-style (||domain^ also blocks all subdomains). Pi-hole v6 compatible.
-! Last updated: 2026-10-25
+! Last updated: 2026-10-30
 !
 ! Side effects:
 !  - Clicks on sponsored Google Search/Shopping results won't open.
@@ -65,18 +66,3 @@
 ||firebaselogging-pa.googleapis.com^
 ||firebaseperusertopics.googleapis.com^
 ||gmossp-sp-analytics.googleapis.com^
-
-! ---------------------------------------------------------------
-! Apple ads and analytics
-! (mesu.apple.com and inappcheck.itunes.apple.com are deliberately NOT
-!  blocked: they are needed for iOS/macOS updates and in-app purchases)
-! ---------------------------------------------------------------
-||api-adservices.apple.com^
-||searchads.apple.com^
-||books-analytics-events.apple.com^
-||metrics.icloud.com^
-||metrics.mzstatic.com^
-! Legacy iAd hosts (service discontinued in 2016, kept for older devices)
-||iad.apple.com^
-||iadcontent.apple.com^
-||iadworkbench.apple.com^
